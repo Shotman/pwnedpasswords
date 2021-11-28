@@ -6,9 +6,9 @@ if($argc === 2){
     $rest = substr($hash,5);
     $list = file_get_contents('https://api.pwnedpasswords.com/range/'.$first5);
     $matches = [];
-    $haveMatch = preg_match('@'.$rest.":(\d)*@im",$list,$matches);
+    $haveMatch = preg_match('@('.$rest."):(\d+)*@im",$list,$matches);
     if($haveMatch){
-        $pwned = $matches[1];
+        $pwned = $matches[2];
         echo("\e[1;31;40m".$passwd.' ['.$hash.'] has been pwned '.$pwned. ($pwned > 1 ? ' times.' : ' time.') . "\e[0m\n" );
         exit(0);
     }
