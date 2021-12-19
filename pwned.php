@@ -1,6 +1,6 @@
 <?php
-if($argc === 2){
-    $passwd = $argv[1];
+array_shift($argv);
+foreach($argv as $passwd){
     $hash = sha1($passwd);
     $first5 = substr($hash,0,5);
     $rest = substr($hash,5);
@@ -10,11 +10,9 @@ if($argc === 2){
     if($haveMatch){
         $pwned = $matches[2];
         echo("\e[1;31;40m".$passwd.' ['.$hash.'] has been pwned '.$pwned. ($pwned > 1 ? ' times.' : ' time.') . "\e[0m\n" );
-        exit(0);
     }
-    echo("\e[0;32;40m".'This password is safe'."\e[0m\n");
-    exit(0);
+	else{
+        echo("\e[0;32;40m".'This password is safe'."\e[0m\n");
+	}
 }
-print("\e[1;33;40m"."Please enter a password and one password only"."\e[0m\n");
-exit(1);
 ?>
